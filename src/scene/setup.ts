@@ -21,6 +21,21 @@ assets.append(C('img', { // Cat texture
 	'src': '/catway.svg',
 }));
 
+if (import.meta.env.DEV) {
+	if (!Number(localStorage.getItem('hide_console'))) {
+		document.head.append(C('script', {
+			src: 'https://cdn.jsdelivr.net/gh/kylebakerio/a-console/a-console.min.js'
+		}));
+		scene.append(C('a-plane', {
+			'console': 'skipIntroAnimation: true',
+			'width': '0.40',
+			'height': '0.60',
+			'position': '-0.5 0.5 -0.4',
+			'rotation': '0 45 0'
+		}));
+	}
+}
+
 scene.append(C('a-plane', { // Logo
 	'position': '0 1 -0.6',
 	'width': '0.4',
