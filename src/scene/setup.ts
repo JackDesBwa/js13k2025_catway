@@ -9,6 +9,7 @@ document.body.appendChild(scene);
 scene.append(C('a-entity', { // Camera
 	'camera': 'fov: 30',
 	'position': '0 1 1',
+	'fov-controls': '',
 	'orbit-controls': 'anchor: 0 1 -0.6',
 }));
 
