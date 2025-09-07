@@ -9,8 +9,7 @@ document.body.appendChild(scene);
 scene.append(C('a-entity', { // Camera
 	'camera': 'fov: 30',
 	'position': '0 1 1',
-	'look-controls': '',
-	'wasd-controls': '',
+	'orbit-controls': 'anchor: 0 1 -0.6',
 }));
 
 const assets = C('a-assets');
