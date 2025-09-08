@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import pluginExternal from 'vite-plugin-external';
+import pluginAnalyzer from 'vite-bundle-analyzer';
 import path from 'path';
 import fs from 'fs';
 
@@ -12,6 +13,10 @@ const conf = defineConfig({
 		}),
 	],
 });
+
+const useAnalyzer = 'VITE_ANALYZE' in process.env;
+console.log('Using VITE_ANALYZE:', useAnalyzer);
+if (useAnalyzer) conf.plugins.push(pluginAnalyzer({ 'open': true }));
 
 // Example command to create certificates:
 //     mkcert -key-file key.pem -cert-file cert.pem localhost
