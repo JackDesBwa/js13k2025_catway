@@ -1,4 +1,5 @@
 import { C, S } from '../app/utils.ts'
+import level1 from '../data/level_01.json'
 
 AFRAME.registerSystem('a_switcher', {
 	init: function() {
@@ -12,6 +13,7 @@ AFRAME.registerSystem('a_switcher', {
 		this.el.camera.focus = 2;
 		S(this, 'stereofx', v => C(this.el, { stereofx: v }));
 		S(this, 'page', this.on_page.bind(this));
+		S(this).setLevel(level1);
 	},
 
 	on_page: function(n) {
