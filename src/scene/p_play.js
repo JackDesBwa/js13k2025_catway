@@ -38,6 +38,7 @@ AFRAME.registerComponent('page_play', {
 		}
 
 		this.cat = C('a-entity', {
+			'class': 'cat',
 			'g_walker': { ...this.level.cat, src: '#tex_c', h: 0.56 },
 		});
 		w.append(this.cat);

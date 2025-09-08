@@ -57,10 +57,12 @@ AFRAME.registerSystem('a_switcher', {
 			p.addEventListener('catway:play:move', _ => play(this.sfx.MOVE));
 			p.addEventListener('catway:play:cantmove', _ => play(this.sfx.CANT_MOVE));
 			p.addEventListener('catway:play:win', _ => {
+				p.querySelector('.cat a-plane').emit('spin');
 				play(this.sfx.WIN);
-				S(this, { page: 'hello' });
+				setTimeout(_ => S(this, { page: 'hello' }), 500);
 			});
 			p.addEventListener('catway:play:die', _ => {
+				p.querySelector('.cat a-plane').emit('spin');
 				play(this.sfx.DIE);
 				setTimeout(_ => p.emit('resetLevel'), 500);
 			});

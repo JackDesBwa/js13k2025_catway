@@ -21,6 +21,15 @@ AFRAME.registerComponent('g_walker', {
 				'loop': true,
 				'dur': 1000,
 				'easing': 'easeInOutQuad',
+				'startEvents': 'loaded,animationcomplete__spin',
+			},
+			"animation__spin": {
+				'property': 'rotation',
+				'from': '0 0 0',
+				'to': '0 0 -360',
+				'dur': 500,
+				'easing': 'easeInQuad',
+				'startEvents': 'spin',
 			},
 		});
 		this.el.append(this.inner);
