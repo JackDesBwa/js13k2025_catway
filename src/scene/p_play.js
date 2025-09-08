@@ -43,5 +43,15 @@ AFRAME.registerComponent('page_play', {
 		});
 		w.append(back);
 		back.addEventListener('click', _ => this.el.emit('catway:page:back'));
+
+		if (import.meta.env.DEV) {
+			import('../dev/devtools.js').then(module => {
+				module.graph_show(
+					module.level_graph(this.level),
+					this.level.pillow.p,
+					this.level.pillow.d
+				);
+			});
+		}
 	},
 });
