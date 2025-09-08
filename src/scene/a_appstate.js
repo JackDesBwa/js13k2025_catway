@@ -5,6 +5,7 @@ AFRAME.registerComponent('appstate', {
 	sceneOnly: true,
 	schema: {
 		page: { default: 'hello' },
+		cat: { default: '' },
 		stereofx: { default: '0' },
 	},
 	init: function () {

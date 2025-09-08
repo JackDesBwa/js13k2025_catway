@@ -37,6 +37,10 @@ AFRAME.registerSystem('a_switcher', {
 		}
 		if (n == 'play') {
 			p.addEventListener('catway:page:back', _ => S(this, { page: 'hello' }));
+			p.addEventListener('catway:play:win', _ => S(this, { page: 'hello' }));
+			p.addEventListener('catway:play:die', _ => {
+				setTimeout(_ => p.emit('resetLevel'), 500);
+			});
 		}
 	}
 });
