@@ -19,6 +19,16 @@ scene.append(C('a-entity', { // Cursor
 	'raycaster': 'objects: .i',
 }));
 
+scene.append(C('a-entity', { // Laser Left
+	'laser-controls': 'hand: left',
+	'raycaster': 'objects: .i',
+}));
+
+scene.append(C('a-entity', { // Laser Right
+	'laser-controls': 'hand: right',
+	'raycaster': 'objects: .i',
+}));
+
 const assets = C('a-assets');
 scene.appendChild(assets);
 
