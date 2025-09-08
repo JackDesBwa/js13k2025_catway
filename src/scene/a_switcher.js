@@ -25,8 +25,13 @@ AFRAME.registerSystem('a_switcher', {
 		this.added.push(p);
 		this.inner.append(p);
 
+		if (n == '3dmode') {
+			p.addEventListener('catway:page:next', _ => S(this, { page: 'hello' }));
+			p.addEventListener('catway:page:back', _ => S(this, { page: 'hello' }));
+		}
 		if (n == 'hello') {
 			p.addEventListener('catway:page:next', _ => S(this, { page: 'play' }));
+			p.addEventListener('catway:page:3D', _ => S(this, { page: '3dmode' }));
 		}
 		if (n == 'play') {
 			p.addEventListener('catway:page:back', _ => S(this, { page: 'hello' }));

@@ -10,11 +10,17 @@ AFRAME.registerComponent('page_hello', {
 			'animation': 'property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear',
 		}));
 
-		const btnStart = C('a-entity', {
-			'g_button': { value: "Start", height: 0.08, width: 0.4 },
-			'position': '0 -0.14 0.1',
-		});
-		this.el.append(btnStart);
-		btnStart.addEventListener('click', _ => this.el.emit('catway:page:next'));
+		const btn = (value, position, fct) => {
+			const el = C('a-entity', {
+				'g_button': { value, height: 0.08, width: 0.4 },
+				'position': position,
+			});
+			this.el.append(el);
+			el.addEventListener('click', fct);
+			return el;
+		};
+
+		btn('Start', '0 -0.14 0.1', _ => this.el.emit('catway:page:next'));
+		btn('3D mode', '0 -0.25 0.1', _ => this.el.emit('catway:page:3D'));
 	},
 });

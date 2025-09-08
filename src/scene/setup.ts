@@ -1,7 +1,7 @@
 import { C } from '../app/utils.ts'
 
 const scene = C('a-scene', {
-	'xr-mode-ui': 'XRMode: xr',
+	'xr-mode-ui': 'enabled: false',
 	'appstate': '',
 });
 if (import.meta.env.DEV) scene.setAttribute('stats', '');
