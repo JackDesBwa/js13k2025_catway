@@ -1,3 +1,4 @@
+import '../scene/a_appstate.js'
 import '../scene/a_switcher.js'
 import '../scene/b_fov_controls.js'
 import '../scene/b_orbit_controls.js'

@@ -2,6 +2,7 @@ import { C } from '../app/utils.ts'
 
 const scene = C('a-scene', {
 	'xr-mode-ui': 'XRMode: xr',
+	'appstate': '',
 });
 if (import.meta.env.DEV) scene.setAttribute('stats', '');
 document.body.appendChild(scene);
