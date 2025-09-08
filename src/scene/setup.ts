@@ -5,7 +5,7 @@ const scene = C('a-scene', {
 	'appstate': '',
 });
 if (import.meta.env.DEV) scene.setAttribute('stats', '');
-document.body.appendChild(scene);
+(document.querySelector('#scene') || document.body).appendChild(scene);
 
 scene.append(C('a-entity', { // Camera
 	'camera': 'fov: 30',

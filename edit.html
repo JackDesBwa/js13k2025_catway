@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/catway.svg" />
+		<title>Game Editor</title>
+		<style>
+		body {
+			margin: 0;
+			font-family: sans-serif;
+			height: 100vh;
+			display: flex;
+		}
+
+		.editor-container {
+			display: flex;
+			width: 100%;
+			height: 100%;
+		}
+
+		.controls-panel {
+			width: 30%;
+			background-color: #f4f4f4;
+			padding: 20px;
+			box-sizing: border-box;
+			border-right: 1px solid #ccc;
+			overflow-y: auto;
+		}
+
+		.right-panel {
+			width: 70%;
+			display: flex;
+			flex-direction: column;
+			position: relative;
+			background: #222;
+		}
+
+		.graph-section:hover {
+			position: absolute;
+		}
+		.graph-section {
+			background: #fff;
+			width: 100%;
+			height: 100%;
+		}
+
+		.preview-section {
+		}
+
+		.input-group {
+			margin-bottom: 15px;
+		}
+
+		.input-group label {
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		.cube-entry.hl {
+			background-color: #fec;
+		}
+
+		.cube-entry {
+			border: 1px solid #ccc;
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 120px;
+			font-family: monospace;
+		}
+
+		button {
+			margin-top: 5px;
+		}
+
+		.toggle-group {
+			display: flex;
+			gap: 5px;
+			margin-bottom: 5px;
+		}
+
+		.toggle-group label {
+			padding: 4px 8px;
+			border: 1px solid #aaa;
+			border-radius: 4px;
+			cursor: pointer;
+			background-color: #eee;
+		}
+
+		.toggle-group input[type="radio"] {
+			display: none;
+		}
+
+		.toggle-group input[type="radio"]:checked + label {
+			background-color: #0078d4;
+			color: white;
+			border-color: #0078d4;
+		}
+
+		body>canvas { display: none; }
+		</style>
+		<script src=//js13kgames.com/2025/webxr/aframe.js></script>
+		<script type="module" src="/src/app/main.ts"></script>
+	</head>
+	<body>
+		<div class="editor-container">
+			<div class="controls-panel">
+
+				<h2>Cat</h2>
+				<div class="cube-entry">
+					<label>X: <input type="number" id="cat-x" value="0" /></label>
+					<label>Y: <input type="number" id="cat-y" value="1" /></label>
+					<label>Z: <input type="number" id="cat-z" value="0" /></label>
+					<div class="toggle-group" style="margin-top: 10px;">
+						Direction:
+						<input type="radio" id="cat-dir-0" name="cat-dir" value="0" onchange="updateJSON()" />
+						<label for="cat-dir-0">+X</label>
+						<input type="radio" id="cat-dir-1" name="cat-dir" value="1" onchange="updateJSON()" />
+						<label for="cat-dir-1">+Y</label>
+						<input type="radio" id="cat-dir-2" name="cat-dir" value="2" checked onchange="updateJSON()" />
+						<label for="cat-dir-2">+Z</label>
+						<input type="radio" id="cat-dir-3" name="cat-dir" value="3" onchange="updateJSON()" />
+						<label for="cat-dir-3">-X</label>
+						<input type="radio" id="cat-dir-4" name="cat-dir" value="4" onchange="updateJSON()" />
+						<label for="cat-dir-4">-Y</label>
+						<input type="radio" id="cat-dir-5" name="cat-dir" value="5" onchange="updateJSON()" />
+						<label for="cat-dir-5">-Z</label>
+					</div>
+				</div>
+
+				<h2>Pillow</h2>
+				<div class="cube-entry">
+					<label>X: <input type="number" id="pillow-x" value="2" /></label>
+					<label>Y: <input type="number" id="pillow-y" value="1" /></label>
+					<label>Z: <input type="number" id="pillow-z" value="0" /></label>
+					<div class="toggle-group" style="margin-top: 10px;">
+						Direction:
+						<input type="radio" id="pillow-dir-0" name="pillow-dir" value="0" onchange="updateJSON()">
+						<label for="pillow-dir-0">+X</label>
+						<input type="radio" id="pillow-dir-1" name="pillow-dir" value="1" onchange="updateJSON()">
+						<label for="pillow-dir-1">+Y</label>
+						<input type="radio" id="pillow-dir-2" name="pillow-dir" value="2" checked onchange="updateJSON()">
+						<label for="pillow-dir-2">+Z</label>
+						<input type="radio" id="pillow-dir-3" name="pillow-dir" value="3" onchange="updateJSON()">
+						<label for="pillow-dir-3">-X</label>
+						<input type="radio" id="pillow-dir-4" name="pillow-dir" value="4" onchange="updateJSON()">
+						<label for="pillow-dir-4">-Y</label>
+						<input type="radio" id="pillow-dir-5" name="pillow-dir" value="5" onchange="updateJSON()">
+						<label for="pillow-dir-5">-Z</label>
+					</div>
+				</div>
+
+				<h2>Cubes</h2>
+				<div id="cubes-container"></div>
+				<button onclick="addCube()">Add Cube</button>
+
+				<h2>Move All</h2>
+				<div class="cube-entry">
+					<div class="toggle-group">
+						Direction:
+						<input type="radio" id="dir-x+" name="move-dir" value="x+" checked>
+						<label for="dir-x+">+X</label>
+						<input type="radio" id="dir-y+" name="move-dir" value="y+">
+						<label for="dir-y+">+Y</label>
+						<input type="radio" id="dir-z+" name="move-dir" value="z+">
+						<label for="dir-z+">+Z</label>
+						<input type="radio" id="dir-x-" name="move-dir" value="x-">
+						<label for="dir-x-">−X</label>
+						<input type="radio" id="dir-y-" name="move-dir" value="y-">
+						<label for="dir-y-">−Y</label>
+						<input type="radio" id="dir-z-" name="move-dir" value="z-">
+						<label for="dir-z-">−Z</label>
+					</div>
+					<button onclick="moveAll()">Move All</button>
+				</div>
+
+				<h2>JSON Output</h2>
+				<button onclick="loadFromJSON()">Load from JSON</button>
+				<textarea id="json-output"></textarea>
+			</div>
+
+			<div class="right-panel">
+				<div class="preview-section" id="scene"></div>
+				<div class="graph-section" id="sigma"></div>
+			</div>
+		</div>
+
+		<script>
+		const cubesContainer = document.getElementById("cubes-container");
+		const jsonOutput = document.getElementById("json-output");
+
+		let cubes = {};
+
+		let highlight = [-1, -1, -1];
+		function renderCubes() {
+			cubesContainer.innerHTML = "";
+			Object.entries(cubes).forEach(([coord, value]) => {
+				const [x, y, z] = coord.split(" ");
+				const div = document.createElement("div");
+				div.className = "cube-entry";
+				if (x == highlight[0] && y == highlight[1] && z == highlight[2]) div.classList.add('hl');
+
+				let valueRadios = "";
+				const faceNames = ["+X", "+Y", "+Z", "-X", "-Y", "-Z"];
+				for (let i = 0; i < 6; i++) {
+					const char = value[i] || "p";
+					const groupName = `${coord}-face${i}`;
+					valueRadios += `
+<div class="toggle-group">
+Face ${faceNames[i]}:
+<input type="radio" id="${groupName}-p" name="${groupName}" value="p" ${char === "p" ? "checked" : ""} onchange="updateChar('${coord}', ${i}, 'p')">
+<label for="${groupName}-p">p</label>
+<input type="radio" id="${groupName}-x" name="${groupName}" value="x" ${char === "x" ? "checked" : ""} onchange="updateChar('${coord}', ${i}, 'x')">
+<label for="${groupName}-x">x</label>
+<input type="radio" id="${groupName}-dash" name="${groupName}" value="-" ${char === "-" ? "checked" : ""} onchange="updateChar('${coord}', ${i}, '-')">
+<label for="${groupName}-dash">-</label>
+</div>
+`;
+				}
+
+				div.innerHTML = `
+<label>X: <input type="number" value="${x}" onchange="updateCoord('${coord}', 0, this.value)" /></label>
+<label>Y: <input type="number" value="${y}" onchange="updateCoord('${coord}', 1, this.value)" /></label>
+<label>Z: <input type="number" value="${z}" onchange="updateCoord('${coord}', 2, this.value)" /></label>
+<div style="margin-top: 10px;">${valueRadios}</div>
+<button onclick="removeCube('${coord}')">Remove</button>
+[${coord}]
+`;
+				cubesContainer.appendChild(div);
+			});
+			updateJSON();
+		}
+
+		function updateCoord(oldCoord, index, newVal) {
+			const parts = oldCoord.split(" ");
+			parts[index] = newVal;
+			const newCoord = parts.join(" ");
+			if (newCoord !== oldCoord && newCoord.trim() !== "") {
+				cubes[newCoord] = cubes[oldCoord];
+				delete cubes[oldCoord];
+				renderCubes();
+			}
+		}
+
+		function updateChar(coord, index, newChar) {
+			const current = cubes[coord];
+			const updated = current.substring(0, index) + newChar + current.substring(index + 1);
+			cubes[coord] = updated;
+			updateJSON();
+		}
+
+		function removeCube(coord) {
+			delete cubes[coord];
+			renderCubes();
+		}
+
+		function addCube() {
+			let newCoord = "-1 -1 -1";
+			let newValue = "xxxxxx";
+			let i = 1;
+			while (cubes[newCoord]) {
+				newCoord = `x${i} y${i} z${i}`;
+				i++;
+			}
+			cubes[newCoord] = newValue;
+			renderCubes();
+		}
+
+		function moveAll() {
+			const dir = document.querySelector('input[name="move-dir"]:checked').value;
+			const axis = dir[0]; // 'x', 'y', or 'z'
+			const delta = dir[1] === '+' ? 1 : -1;
+
+			const newCubes = {};
+			Object.entries(cubes).forEach(([coord, value]) => {
+				let [x, y, z] = coord.split(" ").map(Number);
+				if (axis === 'x') x += delta;
+				if (axis === 'y') y += delta;
+				if (axis === 'z') z += delta;
+				const newCoord = `${x} ${y} ${z}`;
+				newCubes[newCoord] = value;
+			});
+			cubes = newCubes;
+			renderCubes();
+
+			const update = id => {
+				const el = document.getElementById(id);
+				el.value = Number(el.value) + delta;
+			}
+			update('cat-' + axis);
+			update('pillow-' + axis);
+			updateJSON();
+		}
+
+		lastJson = '';
+		function updateJSON() {
+			const catPos = `${document.getElementById("cat-x").value} ${document.getElementById("cat-y").value} ${document.getElementById("cat-z").value}`;
+			const pillowPos = `${document.getElementById("pillow-x").value} ${document.getElementById("pillow-y").value} ${document.getElementById("pillow-z").value}`;
+			const catDir = document.querySelector('input[name="cat-dir"]:checked').value;
+			const pillowDir = document.querySelector('input[name="pillow-dir"]:checked').value;
+
+			const json = {
+				cat: {
+					p: catPos,
+					d: parseInt(catDir)
+				},
+				pillow: {
+					p: pillowPos,
+					d: parseInt(pillowDir)
+				},
+				cubes: { ...cubes }
+			};
+			jsonOutput.value = JSON.stringify(json, null, 2);
+
+			const sceneEl = document.querySelector("a-scene");
+			if (sceneEl && jsonOutput.value != lastJson) {
+				lastJson = jsonOutput.value;
+				sceneEl.components.appstate.setLevel(json);
+				sceneEl.setAttribute('appstate', { 'page': 'play' });
+			}
+		}
+
+		function loadFromJSON() {
+			try {
+				const data = JSON.parse(jsonOutput.value);
+
+				// Load cat position and direction
+				const [catX, catY, catZ] = data.cat.p.split(" ");
+				document.getElementById("cat-x").value = catX;
+				document.getElementById("cat-y").value = catY;
+				document.getElementById("cat-z").value = catZ;
+				document.querySelector(`input[name="cat-dir"][value="${data.cat.d}"]`).checked = true;
+
+				// Load pillow position and direction
+				const [pillowX, pillowY, pillowZ] = data.pillow.p.split(" ");
+				document.getElementById("pillow-x").value = pillowX;
+				document.getElementById("pillow-y").value = pillowY;
+				document.getElementById("pillow-z").value = pillowZ;
+				document.querySelector(`input[name="pillow-dir"][value="${data.pillow.d}"]`).checked = true;
+
+				// Load cubes
+				cubes = { ...data.cubes };
+				renderCubes();
+			} catch (err) {
+				alert("Invalid JSON format. Please check your input.");
+			}
+		}
+
+		document.querySelectorAll("input, select").forEach(el => {
+			el.addEventListener("input", updateJSON);
+			el.addEventListener("change", updateJSON);
+		});
+
+		renderCubes();
+
+		const observer = new MutationObserver((mutations, obs) => {
+			const sceneEl = document.querySelector("a-scene");
+			if (sceneEl) {
+				obs.disconnect();
+				sceneEl.addEventListener("loaded", () => {
+					sceneEl.canvas.style.position = 'initial !important';
+					sceneEl.removeAttribute('stats');
+					sceneEl.removeAttribute('inspector');
+					sceneEl.setAttribute('appstate', { 'page': 'play' });
+					setTimeout(_ => {
+						jsonOutput.value = JSON.stringify(sceneEl.components.appstate.leveldata);
+						loadFromJSON();
+					}, 10);
+				});
+				sceneEl.addEventListener("catway:action:face", e => {
+					highlight = e.detail.p.split(' ').map(Number);
+
+					const name = highlight.join(' ');
+					const index = jsonOutput.value.lastIndexOf(name);
+					if (index !== -1) {
+						jsonOutput.focus();
+						jsonOutput.setSelectionRange(index, index + name.length);
+					}
+
+					renderCubes();
+				});
+			}
+		});
+		observer.observe(document.body, { childList: true, subtree: true });
+		</script>
+	</body>
+</html>
