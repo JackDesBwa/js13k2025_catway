@@ -1,6 +1,6 @@
 import { C, S } from '../app/utils.ts'
 import { SoundFx } from '../app/sound.ts'
-import level1 from '../data/level_01.json'
+import levels from 'levels.json'
 
 AFRAME.registerSystem('a_switcher', {
 	init: function() {
@@ -22,7 +22,7 @@ AFRAME.registerSystem('a_switcher', {
 		this.el.camera.focus = 2;
 		S(this, 'stereofx', v => C(this.el, { stereofx: v }));
 		S(this, 'page', this.on_page.bind(this));
-		S(this).setLevel(level1);
+		S(this).setLevel(levels[0]);
 		const sound_on = _ => {
 			this.sfx = new SoundFx();
 			S(this, 'music_on', v => {

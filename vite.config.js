@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import pluginExternal from 'vite-plugin-external';
 import pluginAnalyzer from 'vite-bundle-analyzer';
+import pluginLevels from './vite-plugin-levels.ts';
 import path from 'path';
 import fs from 'fs';
 
@@ -11,6 +12,7 @@ const conf = defineConfig({
 				three: 'THREE'
 			},
 		}),
+		pluginLevels(),
 	],
 });
 
