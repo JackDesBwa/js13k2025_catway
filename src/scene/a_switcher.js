@@ -14,15 +14,18 @@ AFRAME.registerSystem('a_switcher', {
 
 	on_jump: function() {
 		const p = S(this, 'page');
-		if (p == 'hello') S(this, { 'page': 'play' });
+		if (p == 'hello') S(this, { 'page': 'levels' });
 		if (p == '3dmode') S(this, { 'stereofx': 0, 'page': 'hello' });
+		if (p == 'levels') S(this, { 'level': Math.min(S(this, 'maxlvl') + 1, levels.length), 'page': 'play' });
 	},
 
 	on_loaded: function() {
 		this.el.camera.focus = 2;
 		S(this, 'stereofx', v => C(this.el, { stereofx: v }));
 		S(this, 'page', this.on_page.bind(this));
-		S(this).setLevel(levels[0]);
+		S(this, 'level', n => {
+			S(this).setLevel(levels[n-1]);
+		})
 		const sound_on = _ => {
 			this.sfx = new SoundFx();
 			S(this, 'music_on', v => {
@@ -55,18 +58,31 @@ AFRAME.registerSystem('a_switcher', {
 			p.addEventListener('catway:page:back', _ => S(this, { page: 'hello' }));
 		}
 		if (n == 'hello') {
-			p.addEventListener('catway:page:next', _ => S(this, { page: 'play' }));
+			p.addEventListener('catway:page:next', _ => S(this, { page: 'levels' }));
 			p.addEventListener('catway:page:3D', _ => S(this, { page: '3dmode' }));
+		}
+		if (n == 'levels') {
+			C(p, { page_levels: Math.min(S(this, 'maxlvl') + 1, levels.length) });
+			p.addEventListener('catway:page:next', e => {
+				S(this, {
+					level: e.detail,
+					page: 'play',
+				});
+			});
+			p.addEventListener('catway:page:back', _ => S(this, { page: 'hello' }));
 		}
 		if (n == 'play') {
 			const play = s => S(this, 'sfx_on') && this.sfx && this.sfx.play(s);
-			p.addEventListener('catway:page:back', _ => S(this, { page: 'hello' }));
+			p.addEventListener('catway:page:back', _ => S(this, { page: 'levels' }));
 			p.addEventListener('catway:play:move', _ => play(this.sfx.MOVE));
 			p.addEventListener('catway:play:cantmove', _ => play(this.sfx.CANT_MOVE));
 			p.addEventListener('catway:play:win', _ => {
 				p.querySelector('.cat a-plane').emit('spin');
 				play(this.sfx.WIN);
-				setTimeout(_ => S(this, { page: 'hello' }), 500);
+				S(this, { maxlvl: Math.max(S(this, 'maxlvl'), S(this, 'level')) });
+				setTimeout(_ => S(this, {
+					page: S(this, 'level') == levels.length ? 'hello' : 'levels'
+				}), 500);
 			});
 			p.addEventListener('catway:play:die', _ => {
 				p.querySelector('.cat a-plane').emit('spin');

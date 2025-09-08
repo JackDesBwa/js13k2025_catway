@@ -9,6 +9,8 @@ AFRAME.registerComponent('appstate', {
 		music_on: { default: true },
 		sfx_on: { default: true },
 		stereofx: { default: '0' },
+		level: { default: 1 },
+		maxlvl: { default: 0 },
 	},
 	init: function () {
 		this.leveldata = null;

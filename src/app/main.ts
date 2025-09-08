@@ -15,6 +15,7 @@ import '../scene/i_process.js'
 import '../scene/i_vrcontroller.js'
 import '../scene/p_3dmode.js'
 import '../scene/p_hello.js'
+import '../scene/p_levels.js'
 import '../scene/p_play.js'
 
 import '../scene/setup.ts'
