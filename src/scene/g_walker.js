@@ -7,11 +7,21 @@ AFRAME.registerComponent('g_walker', {
 		d: { default: 0 },
 		h: { default: 0.55 },
 		src: { default: '' },
+		osc: { default: 10 },
 	},
 
 	init: function () {
 		this.inner = C('a-plane', {
 			'material': 'side: double; transparent: true; alphaTest: 0.5; src: ' + this.data.src,
+			'animation__osc': {
+				'property': 'rotation',
+				'from': '0 0 ' + this.data.osc,
+				'to': '0 0 ' + -this.data.osc,
+				'dir': 'alternate',
+				'loop': true,
+				'dur': 1000,
+				'easing': 'easeInOutQuad',
+			},
 		});
 		this.el.append(this.inner);
 	},

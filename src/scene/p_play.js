@@ -43,7 +43,7 @@ AFRAME.registerComponent('page_play', {
 		w.append(this.cat);
 
 		w.append(C('a-entity', {
-			'g_walker': { ...this.level.pillow, src: '#tex_p' },
+			'g_walker': { ...this.level.pillow, src: '#tex_p', osc: -10 },
 		}));
 
 		S(this, 'cat', cat => C(this.cat, { 'g_walker' : vec4q(cat) }));
