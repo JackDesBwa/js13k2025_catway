@@ -9,6 +9,13 @@ AFRAME.registerSystem('a_switcher', {
 		this.inner = C('a-entity', { id: 'worldgrab' });
 		this.el.append(this.inner);
 		this.el.addEventListener('loaded', this.on_loaded.bind(this));
+		this.el.addEventListener('catway:action:jump', this.on_jump.bind(this));
+	},
+
+	on_jump: function() {
+		const p = S(this, 'page');
+		if (p == 'hello') S(this, { 'page': 'play' });
+		if (p == '3dmode') S(this, { 'stereofx': 0, 'page': 'hello' });
 	},
 
 	on_loaded: function() {
