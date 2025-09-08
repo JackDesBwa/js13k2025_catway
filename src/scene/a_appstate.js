@@ -4,6 +4,7 @@ AFRAME.registerComponent('appstate', {
 	sceneOnly: true,
 	schema: {
 		page: { default: 'hello' },
+		stereofx: { default: '0' },
 	},
 	init: function () {
 		const saved = localStorage.getItem('js13k_catway');

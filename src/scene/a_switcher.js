@@ -9,6 +9,8 @@ AFRAME.registerSystem('a_switcher', {
 	},
 
 	on_loaded: function() {
+		this.el.camera.focus = 2;
+		S(this, 'stereofx', v => C(this.el, { stereofx: v }));
 		S(this, 'page', this.on_page.bind(this));
 	},
 
