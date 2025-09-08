@@ -14,6 +14,11 @@ scene.append(C('a-entity', { // Camera
 	'orbit-controls': 'anchor: 0 1 -0.6',
 }));
 
+scene.append(C('a-entity', { // Cursor
+	'cursor': 'rayOrigin:mouse',
+	'raycaster': 'objects: .i',
+}));
+
 const assets = C('a-assets');
 scene.appendChild(assets);
 
