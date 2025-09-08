@@ -1,4 +1,4 @@
-import { OrientedPosition } from '../app/rules.js';
+import { OrientedPosition, dirInv } from '../app/rules.js';
 import { C, S } from '../app/utils.js'
 
 function vec4q(v) {
@@ -13,12 +13,32 @@ function vec4q(v) {
 	}
 }
 
+const reldir = (d, v) => {
+	const U = [1, 5, 1, 1, 2, 1],
+	L = [2, 3, 3, 5, 3, 0];
+	if (v == '') return d;
+	if (v == 'L') return L[d];
+	if (v == 'U') return U[d];
+	if (v == 'R') return dirInv(L[d]);
+	if (v == 'D') return dirInv(U[d]);
+}
+
 AFRAME.registerComponent('page_play', {
 	init: function() {
 		this.el.sceneEl.addEventListener('catway:leveldata', this.reloadLevel.bind(this));
-		this.el.addEventListener('catway:action:face', e => this.on_move(e.detail));
 		this.el.addEventListener('resetLevel', _ => this.resetLevel());
 		this.reloadLevel();
+
+		['face', 'walk', 'jump'].forEach(v => {
+			this['on_' + v] = this['on_' + v].bind(this);
+			this.el.sceneEl.addEventListener('catway:action:' + v, this['on_' + v]);
+		});
+	},
+
+	remove: function() {
+		this.el.sceneEl.removeEventListener('catway:action:face', this.on_face);
+		this.el.sceneEl.removeEventListener('catway:action:walk', this.on_walk);
+		this.el.sceneEl.removeEventListener('catway:action:jump', this.on_jump);
 	},
 
 	reloadLevel: function() {
@@ -77,6 +97,24 @@ AFRAME.registerComponent('page_play', {
 
 	resetLevel: function() {
 		S(this, { cat: vec4q(this.level.cat) });
+	},
+
+	on_face: function(e) {
+		this.on_move(e.detail);
+	},
+
+	on_walk: function(e) {
+		const cat_q = vec4q(S(this, 'cat'));
+		const dir = reldir(cat_q.d, e.detail);
+		const dest = this.level.move_walk(cat_q, dir);
+		this.on_move(dest ? dest : this.level.move_orbit(cat_q, dir));
+	},
+
+	on_jump: function(e) {
+		const cat_q = vec4q(S(this, 'cat'));
+		const dir = reldir(cat_q.d, e.detail);
+		const dest = this.level.move_jump(cat_q, dir);
+		this.on_move(dest ? dest : this.level.move_sidejump(cat_q, dir));
 	},
 
 	on_move: function(q) {
