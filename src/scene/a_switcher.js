@@ -22,5 +22,12 @@ AFRAME.registerSystem('a_switcher', {
 		});
 		this.added.push(p);
 		this.inner.append(p);
+
+		if (n == 'hello') {
+			p.addEventListener('catway:page:next', _ => S(this, { page: 'play' }));
+		}
+		if (n == 'play') {
+			p.addEventListener('catway:page:back', _ => S(this, { page: 'hello' }));
+		}
 	}
 });
