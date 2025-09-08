@@ -1,4 +1,4 @@
-import { C } from '../app/utils.ts'
+import { C, S } from '../app/utils.ts'
 
 AFRAME.registerSystem('a_switcher', {
 	init: function() {
@@ -7,7 +7,7 @@ AFRAME.registerSystem('a_switcher', {
 	},
 
 	on_loaded: function() {
-		this.on_page('hello');
+		S(this, 'page', this.on_page.bind(this));
 	},
 
 	on_page: function(n) {
