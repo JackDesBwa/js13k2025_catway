@@ -1,8 +1,17 @@
 import { defineConfig } from 'vite';
+import pluginExternal from 'vite-plugin-external';
 import path from 'path';
 import fs from 'fs';
 
-const conf = defineConfig({});
+const conf = defineConfig({
+	plugins: [
+		pluginExternal({
+			externals: {
+				three: 'THREE'
+			},
+		}),
+	],
+});
 
 // Example command to create certificates:
 //     mkcert -key-file key.pem -cert-file cert.pem localhost
