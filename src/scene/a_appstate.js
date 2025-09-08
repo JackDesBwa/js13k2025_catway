@@ -6,6 +6,8 @@ AFRAME.registerComponent('appstate', {
 	schema: {
 		page: { default: 'hello' },
 		cat: { default: '' },
+		music_on: { default: true },
+		sfx_on: { default: true },
 		stereofx: { default: '0' },
 	},
 	init: function () {
