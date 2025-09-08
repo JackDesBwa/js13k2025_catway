@@ -16,6 +16,7 @@ scene.append(C('a-entity', { // Camera
 
 scene.append(C('a-entity', { // Cursor
 	'cursor': 'rayOrigin:mouse',
+	'cursor3d': '',
 	'raycaster': 'objects: .i',
 }));
 
