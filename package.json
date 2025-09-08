@@ -13,6 +13,10 @@
     "vite": "^7.1.2"
   },
   "dependencies": {
+    "graphology": "^0.26.0",
+    "graphology-layout-forceatlas2": "^0.10.1",
+    "graphology-shortest-path": "^2.1.0",
+    "sigma": "^3.0.2",
     "threejs-stereoscopiceffects": "github:JackDesBwa/threejs-StereoscopicEffects",
     "vite-bundle-analyzer": "^1.2.3",
     "vite-plugin-external": "^6.2.2"
