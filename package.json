@@ -13,6 +13,7 @@
     "vite": "^7.1.2"
   },
   "dependencies": {
+    "threejs-stereoscopiceffects": "github:JackDesBwa/threejs-StereoscopicEffects",
     "vite-bundle-analyzer": "^1.2.3",
     "vite-plugin-external": "^6.2.2"
   }
