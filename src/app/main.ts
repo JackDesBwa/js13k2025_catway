@@ -1,5 +1,7 @@
+import '../scene/a_switcher.js'
 import '../scene/b_fov_controls.js'
 import '../scene/b_orbit_controls.js'
 import '../scene/b_sky.js'
+import '../scene/p_hello.js'
 
 import '../scene/setup.ts'

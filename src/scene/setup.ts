@@ -35,11 +35,3 @@ if (import.meta.env.DEV) {
 		}));
 	}
 }
-
-scene.append(C('a-plane', { // Logo
-	'position': '0 1 -0.6',
-	'width': '0.4',
-	'height': '0.4',
-	'material': 'side: double; transparent: true; src: #tex_c',
-	'animation': 'property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear',
-}));
