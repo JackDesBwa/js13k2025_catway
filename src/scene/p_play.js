@@ -22,6 +22,15 @@ AFRAME.registerComponent('page_play', {
 			}));
 		}
 
+		this.cat = C('a-entity', {
+			'g_walker': { ...this.level.cat, src: '#tex_c', h: 0.56 },
+		});
+		w.append(this.cat);
+
+		w.append(C('a-entity', {
+			'g_walker': { ...this.level.pillow, src: '#tex_p' },
+		}));
+
 		const s = 0.6/(Math.max(...this.level.size)+1);
 		C(w, {
 			'scale': [s, s, s].join(' '),

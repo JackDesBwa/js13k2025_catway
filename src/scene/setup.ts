@@ -40,6 +40,11 @@ assets.append(C('img', { // Cat texture
 	'src': '/catway.svg',
 }));
 
+assets.append(C('img', { // Pillow texture
+	'id': 'tex_p',
+	'src': '/pillow.svg',
+}));
+
 if (import.meta.env.DEV) {
 	if (!Number(localStorage.getItem('hide_console'))) {
 		document.head.append(C('script', {
