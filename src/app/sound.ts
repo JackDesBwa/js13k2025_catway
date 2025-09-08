@@ -124,4 +124,32 @@ export class SoundFx {
 		this.loops_en[loop_name] = false;
 		clearTimeout(this.loops_id[loop_name]);
 	}
+
+	DIE = { seq: ['PhfdA'], opts: { startTime: 0.15, volume: 0.4 } };
+	WIN = { seq: ['PprtY'], opts: { startTime: 0.15, volume: 0.4 } };
+	MOVE = { seq: ['M'], opts: { duration: 0.15, type: 'sine', attack: 0.05, release: 0.08 } };
+	CANT_MOVE = { seq: ['fF'], opts: { volume: 0.4 } };
+	
+	MUSIC1 = {
+		seq: 'adhm'.split(''),
+		opts: [
+			{
+				duration: 3, attack: 0.1, release: 2.8, volume: 0.1, lowpass: 300,
+			},
+			{
+				duration: 2.5, attack: 0.1, release: 2.4, volume: 0.1, lowpass: 300, type: 'sine',
+			},
+		],
+	};
+	MUSIC2 = {
+		seq: this.MUSIC1.seq,
+		opts: [
+			{
+				duration: 2.5, attack: 0.1, release: 2.4, volume: 0.1, lowpass: 300, startTime: 0.5,
+			},
+			{
+				duration: 3, attack: 0.1, release: 2.4, volume: 0.1, lowpass: 300, startTime: 0.5, type: 'sine',
+			},
+		],
+	};
 }
