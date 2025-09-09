@@ -1,6 +1,7 @@
 import { C, S } from '../app/utils.ts'
 import { SoundFx } from '../app/sound.ts'
 import levels from 'levels.json'
+import tips from 'tips.json'
 
 AFRAME.registerSystem('a_switcher', {
 	init: function() {

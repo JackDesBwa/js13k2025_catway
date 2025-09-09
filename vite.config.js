@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import pluginExternal from 'vite-plugin-external';
 import pluginAnalyzer from 'vite-bundle-analyzer';
 import pluginLevels from './vite-plugin-levels.ts';
+import pluginTips from './vite-plugin-tips.ts';
 import pluginPageEdit from './vite-plugin-editorpage.ts';
 import path from 'path';
 import fs from 'fs';
@@ -14,6 +15,7 @@ const conf = defineConfig({
 			},
 		}),
 		pluginLevels(),
+		pluginTips(),
 		pluginPageEdit(),
 	],
 });
