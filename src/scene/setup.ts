@@ -47,6 +47,11 @@ assets.append(C('img', { // Pillow texture
 	'src': '/pillow.svg',
 }));
 
+assets.append(C('img', { // Box face texture
+	'id': 'tex_f',
+	'src': '/box.svg',
+}));
+
 if (import.meta.env.DEV) {
 	if (!Number(localStorage.getItem('hide_console'))) {
 		document.head.append(C('script', {

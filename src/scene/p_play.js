@@ -51,10 +51,7 @@ AFRAME.registerComponent('page_play', {
 		this.el.append(w);
 
 		for (const pos of Object.keys(this.level.cubes)) {
-			w.append(C('a-entity', {
-				'g_cube': pos,
-				'position': pos
-			}));
+			C(w, { ['g_cube__' + pos.replaceAll(' ', '_')]: pos });
 		}
 
 		this.cat = C('a-entity', {
