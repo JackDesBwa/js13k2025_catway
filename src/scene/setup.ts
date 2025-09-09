@@ -1,3 +1,6 @@
+import svg_box from '../img/box.svg?raw'
+import svg_cat from '../img/catway.svg?raw'
+import svg_pillow from '../img/pillow.svg?raw'
 import { C } from '../app/utils.ts'
 
 const scene = C('a-scene', {
@@ -37,19 +40,21 @@ scene.append(C('a-entity', { // Laser Right
 const assets = C('a-assets');
 scene.appendChild(assets);
 
+const svg = (s: string) => 'data:image/svg+xml,' + encodeURIComponent(s);
+(document.querySelector('link') as HTMLLinkElement).href = svg(svg_cat);
 assets.append(C('img', { // Cat texture
 	'id': 'tex_c',
-	'src': '/catway.svg',
+	'src': svg(svg_cat),
 }));
 
 assets.append(C('img', { // Pillow texture
 	'id': 'tex_p',
-	'src': '/pillow.svg',
+	'src': svg(svg_pillow),
 }));
 
 assets.append(C('img', { // Box face texture
 	'id': 'tex_f',
-	'src': '/box.svg',
+	'src': svg(svg_box),
 }));
 
 if (import.meta.env.DEV) {
