@@ -73,6 +73,13 @@ AFRAME.registerSystem('a_switcher', {
 			p.addEventListener('catway:page:back', _ => S(this, { page: 'hello' }));
 		}
 		if (n == 'play') {
+			const t = C('a-entity', {
+				'g_tips': '',
+				'position': '0 1 -0.29'
+			});
+			this.added.push(t);
+			this.inner.append(t);
+			setTimeout(_ => t.emit('tips', tips[S(this, 'level')] || []), 1000);
 			const play = s => S(this, 'sfx_on') && this.sfx && this.sfx.play(s);
 			p.addEventListener('catway:page:back', _ => S(this, { page: 'levels' }));
 			p.addEventListener('catway:play:move', _ => play(this.sfx.MOVE));
