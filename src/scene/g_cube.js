@@ -20,7 +20,16 @@ AFRAME.registerComponent('g_cube', {
 					'src': '#tex_f',
 					'side': 'double',
 					'opacity': 0.8,
-				}
+				},
+				'animation': {
+					'property': 'material.opacity',
+					'dir': 'alternate',
+					'loop': true,
+					'dur': 2200,
+					'easing': 'easeInOutQuad',
+					'from': 0.8,
+					'to': 0.2,
+				},
 			});
 			this.el.append(plane);
 			plane.addEventListener('mouseenter', () => {
