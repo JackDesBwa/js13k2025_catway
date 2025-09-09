@@ -20,3 +20,27 @@ export function S(cmp: any, n: string, fct: (state: any)=>void|undefined) {
 	}
 	return v;
 }
+
+export function anim_enter_scale(s0='0 0 0', n='enter') {
+	return {
+		['animation__' + n]: {
+			'property': 'scale',
+			'from': s0,
+			'to': '1 1 1',
+			'easing': 'easeInCubic',
+			'dur': 800,
+		}
+	};
+}
+
+export function anim_enter_opacity(to=1, n='enter') {
+	return {
+		['animation__' + n]: {
+			'property': 'material.opacity',
+			'from': 0,
+			'to': to,
+			'easing': 'easeInCubic',
+			'dur': 800,
+		}
+	};
+}

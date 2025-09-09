@@ -1,4 +1,4 @@
-import { C } from '../app/utils.js'
+import { C, anim_enter_scale } from '../app/utils.js'
 import { dir2vec3 } from '../app/rules.ts'
 
 AFRAME.registerComponent('g_walker', {
@@ -31,6 +31,7 @@ AFRAME.registerComponent('g_walker', {
 				'easing': 'easeInQuad',
 				'startEvents': 'spin',
 			},
+			...anim_enter_scale(),
 		});
 		this.el.append(this.inner);
 	},

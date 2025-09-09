@@ -1,4 +1,4 @@
-import { C, S } from '../app/utils.js'
+import { C, S, anim_enter_scale, anim_enter_opacity } from '../app/utils.js'
 
 AFRAME.registerComponent('page_hello', {
 	init: function() {
@@ -21,7 +21,8 @@ AFRAME.registerComponent('page_hello', {
 		};
 
 		C(btn('Start', '0 -0.03 0.1', _ => this.el.emit('catway:page:next')), {
-			g_button: { circle: true, width: 0.08 }
+			g_button: { circle: true, width: 0.08 },
+			...anim_enter_scale(),
 		});
 		btn('3D mode', '0 -0.2 0.1', _ => this.el.emit('catway:page:3D'));
 

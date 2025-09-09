@@ -1,4 +1,4 @@
-import { C, S } from '../app/utils.js'
+import { C, S, anim_enter_opacity } from '../app/utils.js'
 import {
 	OrientedPosition,
 	cubeColors,
@@ -29,7 +29,9 @@ AFRAME.registerComponent('g_cube', {
 					'easing': 'easeInOutQuad',
 					'from': 0.8,
 					'to': 0.2,
+					'startEvents': 'animationcomplete__enter',
 				},
+				...anim_enter_opacity(0.8),
 			});
 			this.el.append(plane);
 			plane.addEventListener('mouseenter', () => {

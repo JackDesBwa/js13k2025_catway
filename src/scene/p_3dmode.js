@@ -1,4 +1,4 @@
-import { C, S } from '../app/utils.js'
+import { C, S, anim_enter_scale } from '../app/utils.js'
 import { StereoscopicEffects } from 'threejs-stereoscopiceffects';
 
 AFRAME.registerComponent('page_3dmode', {
@@ -54,6 +54,7 @@ AFRAME.registerComponent('page_3dmode', {
 				const back = C('a-entity', {
 					'g_button': { value: '<', width: 0.04, circle: true },
 					'position': [-0.22, y - 0.05, 0.1].join(' '),
+					...anim_enter_scale(),
 				});
 				back.addEventListener('click', _ => this.el.emit('catway:page:back'));
 				this.el.append(back);

@@ -1,5 +1,5 @@
 import { OrientedPosition, dirInv } from '../app/rules.js';
-import { C, S } from '../app/utils.js'
+import { C, S, anim_enter_scale } from '../app/utils.js'
 
 function vec4q(v) {
 	if (v.p) {
@@ -75,6 +75,7 @@ AFRAME.registerComponent('page_play', {
 		const back = C('a-entity', {
 			'g_button': { value: '<', fontsize: 4, width: 0.25, circle: true },
 			'position': '-1 -1 -1',
+			...anim_enter_scale(),
 		});
 		w.append(back);
 		back.addEventListener('click', _ => this.el.emit('catway:page:back'));
@@ -84,6 +85,7 @@ AFRAME.registerComponent('page_play', {
 			'align': 'center',
 			'position': '0 0.4 0',
 			'color': '#666',
+			...anim_enter_scale(),
 		}));
 
 		this.resetLevel();

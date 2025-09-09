@@ -1,4 +1,4 @@
-import { C } from '../app/utils.js'
+import { C, anim_enter_scale } from '../app/utils.js'
 
 AFRAME.registerComponent('page_levels', {
 	schema: { default: 1 },
@@ -12,6 +12,7 @@ AFRAME.registerComponent('page_levels', {
 				y: s0,
 				z: 0.1
 			},
+			...anim_enter_scale(),
 		});
 		back.addEventListener('click', _ => this.el.emit('catway:page:back'));
 		this.el.append(back);
@@ -21,15 +22,18 @@ AFRAME.registerComponent('page_levels', {
 			const el = C('a-entity', {
 				'g_button': { value: i, width: 0.05, circle: true },
 				'position': { x, y, z: 0.1 },
+				...anim_enter_scale(),
 			});
 			this.el.append(el);
 			el.addEventListener('click', _ => this.el.emit('catway:page:next', i));
 		}
-		this.el.append(C('a-text', {
-			value: 'Levels',
-			align: 'center',
-			position: [0, s0 + 0.1, 0.1].join(' '),
-			width: 1,
-		}));
+		setTimeout(_ => {
+			this.el.append(C('a-text', {
+				value: 'Levels',
+				align: 'center',
+				position: [0, s0 + 0.1, 0.1].join(' '),
+				width: 1,
+			}));
+		}, 800);
 	},
 });
