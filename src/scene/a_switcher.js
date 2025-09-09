@@ -18,6 +18,7 @@ AFRAME.registerSystem('a_switcher', {
 		if (p == 'hello') S(this, { 'page': 'levels' });
 		if (p == '3dmode') S(this, { 'stereofx': 0, 'page': 'hello' });
 		if (p == 'levels') S(this, { 'level': Math.min(S(this, 'maxlvl') + 1, levels.length), 'page': 'play' });
+		if (p == 'play') this.el.querySelector('[g_tips]').emit('click');
 	},
 
 	on_loaded: function() {
