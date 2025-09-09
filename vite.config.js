@@ -8,6 +8,15 @@ import path from 'path';
 import fs from 'fs';
 
 const conf = defineConfig({
+	build: {
+		outDir: 'dist',
+		rollupOptions: {
+			output: {
+				entryFileNames: 'a.js',
+				dir: 'dist',
+			}
+		}
+	},
 	plugins: [
 		pluginExternal({
 			externals: {
