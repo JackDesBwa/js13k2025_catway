@@ -8,6 +8,7 @@ import path from 'path';
 import fs from 'fs';
 
 const conf = defineConfig({
+	base: "./",
 	build: {
 		outDir: 'dist',
 		rollupOptions: {
