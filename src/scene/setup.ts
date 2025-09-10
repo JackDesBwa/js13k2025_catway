@@ -24,12 +24,14 @@ scene.append(C('a-entity', { // Laser Left
 	'laser-controls': 'hand: left',
 	'raycaster': 'objects: .i',
 	'grabworld': '',
+	'i_vrcontroller': '',
 }));
 
 scene.append(C('a-entity', { // Laser Right
 	'laser-controls': 'hand: right',
 	'raycaster': 'objects: .i',
 	'grabworld': '',
+	'i_vrcontroller': '',
 }));
 
 const assets = C('a-assets');
