@@ -1,6 +1,10 @@
 This javascript game was created for js13k jam 2025, in the WebXR category.
 
+![logo](/images/cover.png)
+
 # Presentation
+
+![screenshot](/images/hero.png)
 
 **For entering WebXR, please see the `3D mode` button**
 
