@@ -82,6 +82,13 @@ AFRAME.registerComponent('page_play', {
 		w.append(back);
 		back.addEventListener('click', _ => this.el.emit('catway:page:back'));
 
+		back.append(C('a-text', {
+			'value': S(this, 'level'),
+			'align': 'center',
+			'position': '0 0.4 0',
+			'color': '#666',
+		}));
+
 		this.resetLevel();
 
 		if (import.meta.env.DEV) {
