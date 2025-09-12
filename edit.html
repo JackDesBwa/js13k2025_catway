@@ -209,7 +209,7 @@
 					const char = value[i] || "p";
 					const groupName = `${coord}-face${i}`;
 					valueRadios += `
-<div class="toggle-group">
+<div class="toggle-group" data-face="${coord} ${i}">
 Face ${faceNames[i]}:
 <input type="radio" id="${groupName}-p" name="${groupName}" value="p" ${char === "p" ? "checked" : ""} onchange="updateChar('${coord}', ${i}, 'p')">
 <label for="${groupName}-p">p</label>
@@ -230,6 +230,14 @@ Face ${faceNames[i]}:
 [${coord}]
 `;
 				cubesContainer.appendChild(div);
+				cubesContainer.querySelectorAll('[data-face]').forEach(el => {
+					el.addEventListener('pointerenter', _ => {
+						document.querySelector('a-scene').emit('catway:hl', el.dataset.face);
+					});
+					el.addEventListener('pointerleave', _ => {
+						document.querySelector('a-scene').emit('catway:hl', '');
+					});
+				})
 			});
 			updateJSON();
 		}

@@ -92,6 +92,24 @@ AFRAME.registerComponent('page_play', {
 					this.level.pillow.d
 				);
 			});
+
+			const hl = C('a-entity', {
+				'g_walker': { ...this.level.cat, src: '#tex_f', h: 0.499, osc: 0 },
+				'visible': false,
+			});
+			hl.addEventListener('loaded', _ => {
+				C(hl.children[0], {
+					'material': { color: '#fc0', opacity: 0.5 },
+				});
+			})
+			w.append(hl);
+			this.el.sceneEl.addEventListener('catway:hl', e => {
+				if (e.detail != '') {
+					C(hl, { 'visible': true, 'g_walker': vec4q(e.detail) });
+				} else {
+					C(hl, { 'visible': false });
+				}
+			})
 		}
 	},
 
