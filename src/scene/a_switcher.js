@@ -29,6 +29,7 @@ AFRAME.registerSystem('a_switcher', {
 			S(this).setLevel(levels[n-1]);
 		})
 		const sound_on = _ => {
+			if (this.sfx) return;
 			this.sfx = new SoundFx();
 			S(this, 'music_on', v => {
 				if (v) {
