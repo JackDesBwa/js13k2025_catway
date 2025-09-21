@@ -88,6 +88,17 @@ AFRAME.registerComponent('page_play', {
 			...anim_enter_scale(),
 		}));
 
+		const skip = C('a-entity', {
+			'g_button': { value: '>>', fontsize: 4, width: 0.25, circle: true },
+			'position': '-1 -1.55 -1',
+			...anim_enter_scale(),
+		});
+		w.append(skip);
+		skip.addEventListener('click', _ => {
+			S(this, { cat: vec4q(this.level.pillow) });
+			this.el.emit('catway:play:win');
+		});
+
 		this.resetLevel();
 
 		if (import.meta.env.DEV) {
