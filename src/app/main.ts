@@ -1,6 +1,6 @@
 import '../scene/a_appstate.js'
 import '../scene/a_switcher.js'
-import '../scene/b_cursor3d.js'
+import '../scene/b_cursor3d_reposition.js'
 import '../scene/b_fov_controls.js'
 import '../scene/b_fullscreen.js'
 import '../scene/b_grabworld.js'

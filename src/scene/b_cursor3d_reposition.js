@@ -1,4 +1,4 @@
-AFRAME.registerComponent('cursor3d', {
+AFRAME.registerComponent('cursor3d_reposition', {
 	dependencies: ['cursor'],
 	init: function() {
 		this.cursor = this.el.components.cursor;
