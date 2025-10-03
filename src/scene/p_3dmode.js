@@ -8,12 +8,12 @@ AFRAME.registerComponent('page_3dmode', {
 	
 		if (sceneEl.is('ar-mode') || sceneEl.is('vr-mode')) sceneEl.exitVR();
 
-		const btn = (value, position, fct) => {
+		const btn = (to, value, position, fct) => {
 			const el = C('a-entity', {
 				'g_button': { value, width: 0.4, height: 0.035, fontsize: 0.5 },
 				'position': position,
 			});
-			this.el.append(el);
+			to.append(el);
 			el.addEventListener('click', fct);
 			return el;
 		}
@@ -36,6 +36,10 @@ AFRAME.registerComponent('page_3dmode', {
 		}
 		if (xrmodes.length) lst.unshift({ category: 'WebXR', elements: xrmodes });
 		let y = 0.35, col = -1;
+
+		const g_modes = C('a-entity', {});
+		const g_modes_simplified = C('a-entity', {});
+		this.el.append(g_modes_simplified);
 
 		this.el.append(C('a-text', {
 			value: 'Choose how to display 3D',
@@ -64,18 +68,44 @@ AFRAME.registerComponent('page_3dmode', {
 				y = 0.35;
 			}
 			y -= 0.01;
-			this.el.append(C('a-text', {
+			g_modes.append(C('a-text', {
 				value: c.category,
 				position: [col * 0.22 - 0.19, y, 0.1].join(' '),
 				width: 0.5,
 			}));
 			y -= 0.035;
 			c.elements.forEach(m => {
-				btn(m.name, [col * 0.22, y, 0.1].join(' '), _ => {
+				btn(g_modes, m.name, [col * 0.22, y, 0.1].join(' '), _ => {
 					change_3dmode(m.value);
 				});
 				y -= 0.04;
 			})
+		});
+
+		const simplified_modes = [
+			...xrmodes,
+			{ name: "HSBS (for 3D TV & co)", value: 4 },
+			{ name: "Anaglyph red/cyan glasses", value: 20 },
+			{ name: "2D projection (Single view left)", value: 0 },
+		];
+
+		y = 0.34;
+		g_modes_simplified.append(C('a-text', {
+			value: "Common 3D modes",
+			position: [-0.19, y, 0.1].join(' '),
+			width: 0.5,
+		}));
+		y -= 0.035;
+		simplified_modes.forEach(m => {
+				btn(g_modes_simplified, m.name, [0, y, 0.1].join(' '), _ => {
+					change_3dmode(m.value);
+				});
+				y -= 0.04;
+		});
+		y -= 0.04;
+		btn(g_modes_simplified, "All modes", [0, y, 0.1].join(' '), _ => {
+			this.el.removeChild(g_modes_simplified);
+			this.el.append(g_modes);
 		});
 	},
 });
