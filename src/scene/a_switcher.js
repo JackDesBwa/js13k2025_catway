@@ -13,6 +13,13 @@ AFRAME.registerSystem('a_switcher', {
 		this.el.addEventListener('catway:action:jump', this.on_jump.bind(this));
 	},
 
+	reset_view: function() {
+		this.inner.object3D.position.set(0, 0, 0);
+		this.inner.object3D.rotation.set(0, 0, 0);
+		this.el.sceneEl.querySelector('[orbit-controls]')
+			.components['orbit-controls'].reset_view();
+	},
+
 	on_jump: function() {
 		const p = S(this, 'page');
 		if (p == 'hello') S(this, { 'page': 'levels' });
