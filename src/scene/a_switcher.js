@@ -22,8 +22,9 @@ AFRAME.registerSystem('a_switcher', {
 
 	on_jump: function() {
 		const p = S(this, 'page');
-		if (p == 'hello') S(this, { 'page': 'levels' });
+		if (p == 'hello') S(this, { 'page': 'tryxr' });
 		if (p == '3dmode') S(this, { 'stereofx': 0, 'page': 'hello' });
+		if (p == 'tryxr') S(this, { 'page': 'levels' });
 		if (p == 'levels') S(this, { 'level': Math.min(S(this, 'maxlvl') + 1, levels.length), 'page': 'play' });
 		if (p == 'play') this.el.querySelector('[g_tips]').emit('click');
 	},
@@ -68,8 +69,11 @@ AFRAME.registerSystem('a_switcher', {
 			p.addEventListener('catway:page:back', _ => S(this, { page: 'hello' }));
 		}
 		if (n == 'hello') {
-			p.addEventListener('catway:page:next', _ => S(this, { page: 'levels' }));
+			p.addEventListener('catway:page:next', _ => S(this, { page: 'tryxr' }));
 			p.addEventListener('catway:page:3D', _ => S(this, { page: '3dmode' }));
+		}
+		if (n == 'tryxr') {
+			p.addEventListener('catway:page:next', _ => S(this, { page: 'levels' }));
 		}
 		if (n == 'levels') {
 			C(p, { page_levels: Math.min(S(this, 'maxlvl') + 1, levels.length) });

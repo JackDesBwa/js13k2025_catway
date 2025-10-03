@@ -21,5 +21,6 @@ import '../scene/p_3dmode.js'
 import '../scene/p_hello.js'
 import '../scene/p_levels.js'
 import '../scene/p_play.js'
+import '../scene/p_tryxr.js'
 
 import '../scene/setup.ts'
