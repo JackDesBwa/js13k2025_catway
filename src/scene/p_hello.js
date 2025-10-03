@@ -2,6 +2,7 @@ import { C, S, anim_enter_scale, anim_enter_opacity } from '../app/utils.js'
 
 AFRAME.registerComponent('page_hello', {
 	init: function() {
+		this.el.sceneEl.systems.a_switcher.reset_view();
 		this.el.append(C('a-plane', {
 			'width': '0.4',
 			'height': '0.4',

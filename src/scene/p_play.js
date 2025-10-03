@@ -25,6 +25,7 @@ const reldir = (d, v) => {
 
 AFRAME.registerComponent('page_play', {
 	init: function() {
+		this.el.sceneEl.systems.a_switcher.reset_view();
 		this.el.sceneEl.addEventListener('catway:leveldata', this.reloadLevel.bind(this));
 		this.el.addEventListener('resetLevel', _ => this.resetLevel());
 		this.reloadLevel();

@@ -4,6 +4,7 @@ import { StereoscopicEffects } from 'threejs-stereoscopiceffects';
 AFRAME.registerComponent('page_3dmode', {
 	init: async function() {
 		const sceneEl = this.el.sceneEl;
+		sceneEl.systems.a_switcher.reset_view();
 	
 		if (sceneEl.is('ar-mode') || sceneEl.is('vr-mode')) sceneEl.exitVR();
 

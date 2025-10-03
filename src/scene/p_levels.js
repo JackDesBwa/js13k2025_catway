@@ -3,6 +3,8 @@ import { C, anim_enter_scale } from '../app/utils.js'
 AFRAME.registerComponent('page_levels', {
 	schema: { default: 1 },
 	init: function() {
+		this.el.sceneEl.systems.a_switcher.reset_view();
+
 		const b = Math.ceil(Math.sqrt(this.data+1));
 		const s0 = (b - 1) / 2 * 0.12;
 		const back = C('a-entity', {
