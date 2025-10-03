@@ -11,6 +11,7 @@ AFRAME.registerComponent('appstate', {
 		stereofx: { default: '0' },
 		level: { default: 1 },
 		maxlvl: { default: 0 },
+		noxr: { default: false },
 	},
 	init: function () {
 		this.leveldata = null;
