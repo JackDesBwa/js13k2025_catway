@@ -25,9 +25,7 @@ AFRAME.registerComponent('orbit-controls', {
 		canvas.addEventListener('pointermove', this.onMouseMove.bind(this));
 		
 		canvas.addEventListener('dblclick', _ => {
-			this.anchor = new THREE.Vector3().copy(this.data.anchor);
-			this.angles.set(0, 0);
-			this.camupdate();
+			this.reset_view();
 		});
 		
 		canvas.addEventListener('contextmenu', e => e.preventDefault());
@@ -56,6 +54,12 @@ AFRAME.registerComponent('orbit-controls', {
 				0.005 * e.movementY
 			);
 		}
+		this.camupdate();
+	},
+
+	reset_view: function() {
+		this.anchor = new THREE.Vector3().copy(this.data.anchor);
+		this.angles.set(0, 0);
 		this.camupdate();
 	},
 
